@@ -25,6 +25,9 @@
 const sections = document.querySelectorAll('section');
 const navList = document.getElementById('navbar__list');
 
+const activePage = window.location.pathname;
+console.log(activePage )
+
 let span = document.querySelector(".up");
 window.onscroll = function() {
     this.scrollY >= 1000 ? span.classList.add("show"): span.classList.remove("show") ;
@@ -45,6 +48,29 @@ const isInViewport = (section) => {
     const rect = section.getBoundingClientRect();
     return (rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight));
 };
+
+
+
+    // function makeActive() {
+    //     sections.forEach(section => {
+    //         const rect = section.getBoundingClientRect();
+
+    //         if (rect.top >= 0 && rect.top <= window.innerHeight * 0.5) {
+    //             // Remove the active class from all navbar menu items
+    //             navbarItems.forEach(item => {
+    //                 item.classList.remove('active');
+    //             });
+
+    //             // Find the corresponding navbar menu item and add the active class
+    //             const navItem = document.querySelector(`.navbar__list li a[href="#${section.id}"]`);
+    //             console.log(navItem)
+    //             navItem.parentNode.classList.add('active');
+    //         }
+    //     });
+    // }
+
+    // document.addEventListener('scroll', makeActive);
+    // makeActive();
 
 
 /**
@@ -77,10 +103,18 @@ const scrollToSection = () => {
 const setActiveSection = () => {
     window.addEventListener('scroll', () => {
         sections.forEach(section => {
+            const navItem = document.querySelector(`.menu__link[href="#${section.id}"]`);
+
             if (isInViewport(section)) {
                 section.classList.add('your-active-class');
+                if(navItem) {
+                    navItem.classList.add('active');
+                }
             } else {
                 section.classList.remove('your-active-class');
+                if (navItem) {
+                    navItem.classList.remove('active');
+                }
             }
         });
     });
